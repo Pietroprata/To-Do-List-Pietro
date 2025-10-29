@@ -1,0 +1,486 @@
+/* --- 1. Variáveis CSS (Custom Properties) --- */
+
+/* :root define as variáveis para o Tema Claro (default) */
+:root {
+    /* Cores de Fundo */
+    --bg-body: #f4f7f6;
+    --bg-sidebar: #ffffff;
+    --bg-content-column: #f9f9f9;
+    --bg-card: #ffffff;
+    --bg-modal: #ffffff;
+    --bg-overlay: rgba(0, 0, 0, 0.5);
+    --bg-switch: #ccc;
+    --bg-switch-slider: white;
+    --bg-input: #ffffff;
+
+    /* Cores de Texto */
+    --text-primary: #333;
+    --text-secondary: #666;
+    --text-header: #222;
+    --text-sidebar-link: #555;
+    --text-sidebar-link-active: #007bff;
+    --text-btn: #ffffff;
+    --text-btn-cancel: #555;
+
+    /* Cores de Borda e Sombra */
+    --border-color: #e0e0e0;
+    --border-column: #eee;
+    --shadow-card: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --shadow-card-hover: 0 4px 10px rgba(0, 0, 0, 0.12);
+    --shadow-modal: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+    /* Cores Principais */
+    --color-primary: #007bff;
+    --color-primary-hover: #0056b3;
+    --color-primary-light-bg: #e6f2ff;
+    --color-cancel: #f0f0f0;
+    --color-cancel-hover: #e0e0e0;
+    
+    /* Cores das Colunas (Melhoria de Design) */
+    --col-faculdade-border: #3498db;
+    --col-ieee-border: #e74c3c;
+    --col-ic-border: #f1c40f;
+    --col-pessoal-border: #2ecc71;
+}
+
+/* Definição das variáveis para o Tema Escuro */
+body[data-theme="dark"] {
+    /* Cores de Fundo */
+    --bg-body: #121212;
+    --bg-sidebar: #1e1e1e;
+    --bg-content-column: #1e1e1e;
+    --bg-card: #2a2a2a;
+    --bg-modal: #2a2a2a;
+    --bg-overlay: rgba(0, 0, 0, 0.7);
+    --bg-switch: #555;
+    --bg-switch-slider: white;
+    --bg-input: #333;
+
+    /* Cores de Texto */
+    --text-primary: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --text-header: #ffffff;
+    --text-sidebar-link: #c0c0c0;
+    --text-sidebar-link-active: #0088ff;
+    --text-btn: #ffffff;
+    --text-btn-cancel: #e0e0e0;
+
+    /* Cores de Borda e Sombra */
+    --border-color: #333;
+    --border-column: #444;
+    --shadow-card: 0 2px 5px rgba(0, 0, 0, 0.3);
+    --shadow-card-hover: 0 4px 10px rgba(0, 0, 0, 0.4);
+    --shadow-modal: 0 5px 15px rgba(0, 0, 0, 0.5);
+
+    /* Cores Principais */
+    --color-primary: #0088ff; /* Azul mais vibrante no escuro */
+    --color-primary-hover: #0066cc;
+    --color-primary-light-bg: #003366;
+    --color-cancel: #444;
+    --color-cancel-hover: #555;
+}
+
+/* --- 2. Reset Global e Estilos Base --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow: hidden;
+    /* Transição suave para a mudança de tema */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* --- 3. Layout Principal --- */
+.app-container {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    height: 100vh;
+}
+
+/* --- 4. Sidebar --- */
+.sidebar {
+    background-color: var(--bg-sidebar);
+    padding: 25px 20px;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.sidebar-header h2 {
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+    color: var(--color-primary);
+}
+
+.sidebar nav ul {
+    list-style: none;
+}
+
+.sidebar nav li a {
+    display: flex; /* Para alinhar ícone e texto */
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: var(--text-sidebar-link);
+    font-weight: 500;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar nav li a .icon {
+    margin-right: 12px;
+    font-size: 1.1rem;
+}
+
+.sidebar nav li a:hover {
+    background-color: var(--color-cancel); /* Era #f0f0f0 */
+}
+
+.sidebar nav li.active a {
+    background-color: var(--color-primary-light-bg);
+    color: var(--text-sidebar-link-active);
+}
+
+/* --- 5. Theme Switcher (Sidebar) --- */
+.theme-switcher {
+    margin-top: auto; /* Empurra para o final da sidebar */
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-body); /* Fundo da cor do body */
+    border-radius: 8px;
+}
+
+.theme-switcher span {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--bg-switch);
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--bg-switch-slider);
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: var(--color-primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+.slider.round { border-radius: 28px; }
+.slider.round:before { border-radius: 50%; }
+
+
+/* --- 6. Conteúdo Principal --- */
+.main-content {
+    padding: 30px;
+    overflow-y: auto; 
+    height: 100vh;
+    background-color: var(--bg-body);
+}
+
+.main-content header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: var(--text-header);
+}
+
+.tasks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.task-column {
+    background-color: var(--bg-content-column);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* MELHORIA DE DESIGN: Borda colorida no topo */
+    border-top: 4px solid var(--border-column);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Cores específicas da borda */
+#col-faculdade-container { border-top-color: var(--col-faculdade-border); }
+#col-ieee-container      { border-top-color: var(--col-ieee-border); }
+#col-ic-container        { border-top-color: var(--col-ic-border); }
+#col-pessoal-container   { border-top-color: var(--col-pessoal-border); }
+
+.task-column h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-column); /* Mais sutil */
+    color: var(--text-header);
+}
+
+.tasks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-height: 100px;
+}
+
+/* --- 7. Card de Tarefa --- */
+.task-card {
+    background-color: var(--bg-card);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.3s, background-color 0.3s;
+}
+
+.task-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px); /* Leve elevação no hover */
+}
+
+.task-card h4 {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: var(--text-primary);
+}
+
+.task-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    word-wrap: break-word; 
+}
+
+/* Status (Cores de fundo e texto mantidas, pois são semânticas) */
+.task-card .status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.status-prioridade { background-color: #ffebee; color: #d32f2f; }
+.status-fazendo    { background-color: #e3f2fd; color: #1976d2; }
+.status-concluida  { background-color: #e8f5e9; color: #388e3c; }
+
+
+/* --- 8. Botão Flutuante (FAB) --- */
+.fab {
+    /* ... (estilo original mantido, mas usando variáveis) ... */
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-primary);
+    color: var(--text-btn);
+    font-size: 2rem;
+    line-height: 60px;
+    text-align: center;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    z-index: 100;
+}
+
+.fab:hover {
+    background-color: var(--color-primary-hover);
+    transform: scale(1.05);
+}
+
+
+/* --- 9. Modal de Adição --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-overlay);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 200;
+}
+
+.modal-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal {
+    background-color: var(--bg-modal);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-modal);
+    width: 90%;
+    max-width: 500px;
+    transform: scale(0.95);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.modal-overlay.active .modal {
+    transform: scale(1);
+}
+
+.modal h2 {
+    font-weight: 600;
+    margin-bottom: 25px;
+    text-align: center;
+    color: var(--text-header);
+}
+
+/* Formulário (Inputs agora reagem ao tema) */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Botões do Modal */
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit {
+    background-color: var(--color-primary);
+    color: var(--text-btn);
+}
+.btn-submit:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.btn-cancel {
+    background-color: var(--color-cancel);
+    color: var(--text-btn-cancel);
+}
+.btn-cancel:hover {
+    background-color: var(--color-cancel-hover);
+}
+
+
+/* --- 10. Footer --- */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    transition: border-color 0.3s, color 0.3s;
+}
+
+
+/* --- 11. Responsividade (Sem alterações) --- */
+@media (max-width: 768px) {
+    .app-container {
+        grid-template-columns: 1fr;
+    }
+    .sidebar {
+        display: none; 
+    }
+    .main-content {
+        padding: 20px;
+    }
+    .tasks-grid {
+        grid-template-columns: 1fr;
+    }
+    .fab {
+        bottom: 20px;
+        right: 20px;
+    }
+    .modal {
+        width: 95%;
+        padding: 20px;
+    }
+}

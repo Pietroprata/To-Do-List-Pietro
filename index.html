@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Tarefas | Projeto Didático</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light">
+
+    <div class="app-container">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Categorias</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><a><span class="icon">📊</span> Visão Geral</a></li>
+                    <li><a><span class="icon">🎓</span> Faculdade</a></li>
+                    <li><a><span class="icon">🚀</span> IEEE</a></li>
+                    <li><a><span class="icon">🔬</span> IC (Iniciação)</a></li>
+                    <li><a><span class="icon">👤</span> Pessoal</a></li>
+                </ul>
+            </nav>
+
+            <div class="theme-switcher">
+                <span>Modo Escuro</span>
+                <label class="switch">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1>Meu Painel de Tarefas</h1>
+            </header>
+            
+            <div class="tasks-grid">
+                
+                <div class="task-column" id="col-faculdade-container">
+                    <h3>Faculdade</h3>
+                    <div class="tasks-container" id="col-faculdade">
+                        </div>
+                </div>
+
+                <div class="task-column" id="col-ieee-container">
+                    <h3>IEEE</h3>
+                    <div class="tasks-container" id="col-ieee"></div>
+                </div>
+
+                <div class="task-column" id="col-ic-container">
+                    <h3>IC</h3>
+                    <div class="tasks-container" id="col-ic"></div>
+                </div>
+
+                <div class="task-column" id="col-pessoal-container">
+                    <h3>Pessoal</h3>
+                    <div class="tasks-container" id="col-pessoal"></div>
+                </div>
+
+            </div>
+
+            <footer>
+                <p> v 0.1 | Projeto To-Do List IEEE UFF CS EPS - 2025 | Desenvolvido por Pietro Prata</p>
+            </footer>
+
+        </main>
+
+        <button class="fab" id="open-modal-btn" aria-label="Adicionar nova tarefa">+</button>
+
+    </div>
+
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="add-task-modal">
+            <form id="add-task-form">
+                <h2>Nova Tarefa</h2>
+                <div class="form-group">
+                    <label for="task-category">Categoria</label>
+                    <select id="task-category" required>
+                        <option value="">Selecione a categoria</option>
+                        <option value="faculdade">Faculdade</option>
+                        <option value="ieee">IEEE</option>
+                        <option value="ic">IC</option>
+                        <option value="pessoal">Pessoal</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="task-title">Título</label>
+                    <input type="text" id="task-title" placeholder="Ex: Prova de Cálculo" required>
+                </div>
+                <div class="form-group">
+                    <label for="task-description">Descrição</label>
+                    <textarea id="task-description" placeholder="Ex: Estudar capítulos 4 e 5..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="task-status">Status</label>
+                    <select id="task-status" required>
+                        <option value="prioridade">Prioridade</option>
+                        <option value="fazendo">Fazendo</option>
+                        <option value="concluida">Concluída</option>
+                    </select>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="btn btn-cancel" id="close-modal-btn">Cancelar</button>
+                    <button type="submit" class="btn btn-submit">Adicionar Tarefa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
